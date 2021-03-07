@@ -41,3 +41,15 @@ To produces visuals and/or change the parameters of either the swarm training or
 
 ### License
 This project is distributed under the [MIT License](https://raw.githubusercontent.com/briagd/Scheduling-of-malleable-HPC-MPI-applications/master/LICENSE)
+
+# New version
+
+To run the new version: `python3 -m simulator.experiment Configurations/exp.ini`
+
+It will run the expriments as described in the `exp.ini` configuration file and save the results in `results/traces/`
+
+These traces can be read using the jupyter notebook `results/analysis.ipynb`
+
+Scheduling are defined and their code are available in `simulator/scheduler/concrete/`
+
+A good example is the **PURE** scheduler that always allocate the same number of hosts (rounded) to each applications.
