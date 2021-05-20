@@ -1,0 +1,9 @@
+a_list:
+  reconfig_scale: 0.331
+	reconfig_weight: 0.175
+	alpha_weight: 0.742
+	shutdown_scale: 0.760
+	shutdown_weight: 0.455
+	shutdown_time_short: 899
+	shutdown_time_long: 1406  
+	shutdown_time_prob: 0.717

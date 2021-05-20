@@ -13,3 +13,4 @@
 from .FIFOSimple import SchedulerFIFO
 from .PureReconfiguration import SchedulerPureReconfiguration
 from .PSO import SchedulerPSO
+from .GA import SchedulerGA
