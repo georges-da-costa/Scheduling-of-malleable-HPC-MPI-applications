@@ -410,13 +410,31 @@ class JobWork(Job):
 
             # job is marked as interrupted, compute remaining mass based on `self.time_end_real`
             if self.is_interrupted():
-                return self.mass - ((self.mass * (self.time_end_real - self.time_beg)) / (self.time_end - self.time_beg))
+                if self.mass is None or self.mass == 0:
+                    return 0
+                elif self.time_end_real is None or self.time_end_real == 0:
+                    return 0
+                elif self.time_beg is None or self.time_beg == 0:
+                    return 0
+                elif self.time_end is None or self.time_end == 0:
+                    return 0
+                else:
+                    return self.mass - ((self.mass * (self.time_end_real - self.time_beg)) / (self.time_end - self.time_beg))
 
             # should not reach this
             raise RuntimeError
 
         # job is still executing, compute remaining mass based on `time`
-        return self.mass - ((self.mass * (time - self.time_beg)) / (self.time_end - self.time_beg))
+        if self.mass is None or self.mass == 0:
+            return 0
+        elif time is None or time == 0:
+                    return 0
+        elif self.time_beg is None or self.time_beg == 0:
+                    return 0
+        elif self.time_end is None or self.time_end == 0:
+                    return 0
+        else:
+            return self.mass - ((self.mass * (time - self.time_beg)) / (self.time_end - self.time_beg))
 
 
 class JobReconfiguration(Job):
