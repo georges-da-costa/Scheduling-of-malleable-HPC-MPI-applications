@@ -63,7 +63,7 @@ class SchedulerGA(Scheduler):
 
         return min_range, max_range
 
-    def create_toolbox(input_values):
+    def create_toolbox(self, input_values):
         creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
         creator.create("Individual", list, fitness=creator.FitnessMin)
 
@@ -104,7 +104,11 @@ class SchedulerGA(Scheduler):
             for mutant in offspring:
                 if abs(sum(mutant) - sum(min_range)) < abs(sum(mutant) - sum(max_range)):
                     #The condition is to only mutate a child whose value is closer to the min_range
-                    toolbox.mutate(mutant)
+                    try:
+                        toolbox.mutate(mutant)
+                    except ZeroDivisionError:
+                        continue #This occurs should in case the up an low are the same which will result in an error, thus , do not mutate
+                                 #It continues since the fitness values are still related
                     del mutant.fitness.values
         
             invalid_ind = [ind for ind in offspring if not ind.fitness.valid]
@@ -140,8 +144,7 @@ class SchedulerGA(Scheduler):
                     
                     sum_of_parameters = sum(parameters)
                     request_queue_selected_parameters_sum.append(sum_of_parameters)
-
-                print(request_queue_selected_parameters)
+                
                 best_job_parameters_sum = self.create_toolbox(request_queue_selected_parameters)
 
                 closest_parameter_difference = abs(request_queue_selected_parameters_sum[0] - best_job_parameters_sum)
