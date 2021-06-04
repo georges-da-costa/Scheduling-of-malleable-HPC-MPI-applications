@@ -186,6 +186,10 @@ class SchedulerGA(Scheduler):
             power_off = JobSystemTurnOff(time, server)
             self.add_job(power_off)
 
+        with open('last_completed_jobs.txt', 'w') as cj:
+            cj.write(str(self.complete_jobs))  #Saves the details needed for draw_graph in visualizer.py
+
+
     def _allow_shutdown(self, av_servers: list):
         return False, None
         if (0.5 > ((len(av_servers) / len(self.servers)) ** self.conf.shutdown_weight) * self.conf.shutdown_scale):
